@@ -1,0 +1,118 @@
+一组三个人：
+
+1、购物首页、产品分类展示页面，产品详情页，购物篮(_shopLayout.cshtml)
+
+2、个人中心（三个）+登录、注册(_personLayout.cshtml)
+
+
+
+3、后台：购买者管理、订单管理、管理员管理、登录，产品（图片）(_adminLayout.cshtml)
+
+
+
+
+
+
+多人协作开发-环境（github+visual 2015)
+
+
+准备:
+
+	1、github注册一个帐号
+	
+	2、我的帐号：wzyexf@126.com()
+
+
+visual studio 2015 安装插件(github)	
+	visual studio 2015 : 工具/扩展和更新   : 联机状态:   github
+
+
+使用：
+	1、visual studio 视图/团队资源管理器   : 联机
+
+
+	2、create repository (创立软件仓库)
+
+	3、clone操作
+
+组长：
+	1、create repository
+	2、本地建立软件仓库目录 
+	3、在软件仓库目录，建立solution
+
+		+：还没有提交.
+		锁： 已经提交
+
+	4、
+
+合作者：
+	1、clone操作（https://github.com/wzyexf/webdesign2017.git）
+
+
+
+工程任务架构：
+	
+	组长：创立解决方案()
+
+
+	文件架构:()
+
+	
+	通用模版：(_shopLayout.cshtml),(_personLayout.cshtml),(_shopLayout.cshtml)
+
+
+
+	数据库设计：
+
+		分类表：
+		产品表：
+		购物者表：
+		购物篮
+		订单表头
+		订单表体
+		管理员表
+		
+
+
+		
+
+
+
+,
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
