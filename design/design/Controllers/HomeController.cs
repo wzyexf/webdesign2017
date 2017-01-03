@@ -16,6 +16,7 @@ namespace design.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
+            int a = 1;
 
             return View();
         }
