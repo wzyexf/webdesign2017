@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="jb_shopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="T_Shop_Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PWD" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="T_Shop_Basket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuyerId" Type="int" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Amount" Type="int" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="T_Shop_Buyer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PWD" Type="nvarchar" MaxLength="20" />
+          <Property Name="Sex" Type="int" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="T_Shop_Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConnectorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ConnectorAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="ConnectorPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="TotalMoney" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Status" Type="int" />
+          <Property Name="BuyerId" Type="int" />
+        </EntityType>
+        <EntityType Name="T_Shop_OrderItems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" />
+        </EntityType>
+        <EntityType Name="T_Shop_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Decription" Type="text" />
+          <Property Name="Stock" Type="int" />
+          <Property Name="MothSells" Type="int" />
+          <Property Name="Pic" Type="nvarchar" MaxLength="50" />
+          <Property Name="CategoryId" Type="int" />
+        </EntityType>
+        <EntityType Name="T_Shop_ProductCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <Association Name="FK_T_Shop_Basket_ToBuyer">
+          <End Role="T_Shop_Buyer" Type="Self.T_Shop_Buyer" Multiplicity="0..1" />
+          <End Role="T_Shop_Basket" Type="Self.T_Shop_Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Shop_Buyer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_Shop_Basket">
+              <PropertyRef Name="BuyerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Shop_Basket_ToProduct">
+          <End Role="T_Shop_Product" Type="Self.T_Shop_Product" Multiplicity="0..1" />
+          <End Role="T_Shop_Basket" Type="Self.T_Shop_Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Shop_Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_Shop_Basket">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Shop_Order_ToBuyer">
+          <End Role="T_Shop_Buyer" Type="Self.T_Shop_Buyer" Multiplicity="0..1" />
+          <End Role="T_Shop_Order" Type="Self.T_Shop_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Shop_Buyer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_Shop_Order">
+              <PropertyRef Name="BuyerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Shop_OrderItems_ToOrder">
+          <End Role="T_Shop_Order" Type="Self.T_Shop_Order" Multiplicity="0..1" />
+          <End Role="T_Shop_OrderItems" Type="Self.T_Shop_OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Shop_Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_Shop_OrderItems">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Shop_OrderItems_ToProduct">
+          <End Role="T_Shop_Product" Type="Self.T_Shop_Product" Multiplicity="1" />
+          <End Role="T_Shop_OrderItems" Type="Self.T_Shop_OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Shop_Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_Shop_OrderItems">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Shop_Product_ToCategory">
+          <End Role="T_Shop_ProductCategory" Type="Self.T_Shop_ProductCategory" Multiplicity="0..1" />
+          <End Role="T_Shop_Product" Type="Self.T_Shop_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Shop_ProductCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_Shop_Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="jb_shopModelStoreContainer">
+          <EntitySet Name="T_Shop_Admin" EntityType="Self.T_Shop_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Shop_Basket" EntityType="Self.T_Shop_Basket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Shop_Buyer" EntityType="Self.T_Shop_Buyer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Shop_Order" EntityType="Self.T_Shop_Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Shop_OrderItems" EntityType="Self.T_Shop_OrderItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Shop_Product" EntityType="Self.T_Shop_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Shop_ProductCategory" EntityType="Self.T_Shop_ProductCategory" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_T_Shop_Basket_ToBuyer" Association="Self.FK_T_Shop_Basket_ToBuyer">
+            <End Role="T_Shop_Buyer" EntitySet="T_Shop_Buyer" />
+            <End Role="T_Shop_Basket" EntitySet="T_Shop_Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Shop_Basket_ToProduct" Association="Self.FK_T_Shop_Basket_ToProduct">
+            <End Role="T_Shop_Product" EntitySet="T_Shop_Product" />
+            <End Role="T_Shop_Basket" EntitySet="T_Shop_Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Shop_Order_ToBuyer" Association="Self.FK_T_Shop_Order_ToBuyer">
+            <End Role="T_Shop_Buyer" EntitySet="T_Shop_Buyer" />
+            <End Role="T_Shop_Order" EntitySet="T_Shop_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Shop_OrderItems_ToOrder" Association="Self.FK_T_Shop_OrderItems_ToOrder">
+            <End Role="T_Shop_Order" EntitySet="T_Shop_Order" />
+            <End Role="T_Shop_OrderItems" EntitySet="T_Shop_OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Shop_OrderItems_ToProduct" Association="Self.FK_T_Shop_OrderItems_ToProduct">
+            <End Role="T_Shop_Product" EntitySet="T_Shop_Product" />
+            <End Role="T_Shop_OrderItems" EntitySet="T_Shop_OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Shop_Product_ToCategory" Association="Self.FK_T_Shop_Product_ToCategory">
+            <End Role="T_Shop_ProductCategory" EntitySet="T_Shop_ProductCategory" />
+            <End Role="T_Shop_Product" EntitySet="T_Shop_Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="jb_shopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="T_Shop_Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PWD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="T_Shop_Basket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuyerId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="T_Shop_Buyer" Relationship="Self.FK_T_Shop_Basket_ToBuyer" FromRole="T_Shop_Basket" ToRole="T_Shop_Buyer" />
+          <NavigationProperty Name="T_Shop_Product" Relationship="Self.FK_T_Shop_Basket_ToProduct" FromRole="T_Shop_Basket" ToRole="T_Shop_Product" />
+        </EntityType>
+        <EntityType Name="T_Shop_Buyer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PWD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="Int32" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="T_Shop_Basket" Relationship="Self.FK_T_Shop_Basket_ToBuyer" FromRole="T_Shop_Buyer" ToRole="T_Shop_Basket" />
+          <NavigationProperty Name="T_Shop_Order" Relationship="jb_shopModel.FK_T_Shop_Order_ToBuyer" FromRole="T_Shop_Buyer" ToRole="T_Shop_Order" />
+        </EntityType>
+        <EntityType Name="T_Shop_Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConnectorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConnectorAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ConnectorPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TotalMoney" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="T_Shop_OrderItems" Relationship="Self.FK_T_Shop_OrderItems_ToOrder" FromRole="T_Shop_Order" ToRole="T_Shop_OrderItems" />
+          <Property Name="BuyerId" Type="Int32" />
+          <NavigationProperty Name="T_Shop_Buyer" Relationship="jb_shopModel.FK_T_Shop_Order_ToBuyer" FromRole="T_Shop_Order" ToRole="T_Shop_Buyer" />
+        </EntityType>
+        <EntityType Name="T_Shop_OrderItems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" />
+          <NavigationProperty Name="T_Shop_Order" Relationship="Self.FK_T_Shop_OrderItems_ToOrder" FromRole="T_Shop_OrderItems" ToRole="T_Shop_Order" />
+          <NavigationProperty Name="T_Shop_Product" Relationship="Self.FK_T_Shop_OrderItems_ToProduct" FromRole="T_Shop_OrderItems" ToRole="T_Shop_Product" />
+        </EntityType>
+        <EntityType Name="T_Shop_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Decription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Stock" Type="Int32" />
+          <Property Name="MothSells" Type="Int32" />
+          <Property Name="Pic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryId" Type="Int32" />
+          <NavigationProperty Name="T_Shop_Basket" Relationship="Self.FK_T_Shop_Basket_ToProduct" FromRole="T_Shop_Product" ToRole="T_Shop_Basket" />
+          <NavigationProperty Name="T_Shop_OrderItems" Relationship="Self.FK_T_Shop_OrderItems_ToProduct" FromRole="T_Shop_Product" ToRole="T_Shop_OrderItems" />
+          <NavigationProperty Name="T_Shop_ProductCategory" Relationship="Self.FK_T_Shop_Product_ToCategory" FromRole="T_Shop_Product" ToRole="T_Shop_ProductCategory" />
+        </EntityType>
+        <EntityType Name="T_Shop_ProductCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_Shop_Product" Relationship="Self.FK_T_Shop_Product_ToCategory" FromRole="T_Shop_ProductCategory" ToRole="T_Shop_Product" />
+        </EntityType>
+        <Association Name="FK_T_Shop_Basket_ToBuyer">
+          <End Role="T_Shop_Buyer" Type="Self.T_Shop_Buyer" Multiplicity="0..1" />
+          <End Role="T_Shop_Basket" Type="Self.T_Shop_Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Shop_Buyer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_Shop_Basket">
+              <PropertyRef Name="BuyerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Shop_Basket_ToProduct">
+          <End Role="T_Shop_Product" Type="Self.T_Shop_Product" Multiplicity="0..1" />
+          <End Role="T_Shop_Basket" Type="Self.T_Shop_Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Shop_Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_Shop_Basket">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Shop_OrderItems_ToOrder">
+          <End Role="T_Shop_Order" Type="Self.T_Shop_Order" Multiplicity="0..1" />
+          <End Role="T_Shop_OrderItems" Type="Self.T_Shop_OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Shop_Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_Shop_OrderItems">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Shop_OrderItems_ToProduct">
+          <End Role="T_Shop_Product" Type="Self.T_Shop_Product" Multiplicity="1" />
+          <End Role="T_Shop_OrderItems" Type="Self.T_Shop_OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Shop_Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_Shop_OrderItems">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Shop_Product_ToCategory">
+          <End Role="T_Shop_ProductCategory" Type="Self.T_Shop_ProductCategory" Multiplicity="0..1" />
+          <End Role="T_Shop_Product" Type="Self.T_Shop_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Shop_ProductCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_Shop_Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="T_Shop_Admin" EntityType="Self.T_Shop_Admin" />
+          <EntitySet Name="T_Shop_Basket" EntityType="Self.T_Shop_Basket" />
+          <EntitySet Name="T_Shop_Buyer" EntityType="Self.T_Shop_Buyer" />
+          <EntitySet Name="T_Shop_Order" EntityType="Self.T_Shop_Order" />
+          <EntitySet Name="T_Shop_OrderItems" EntityType="Self.T_Shop_OrderItems" />
+          <EntitySet Name="T_Shop_Product" EntityType="Self.T_Shop_Product" />
+          <EntitySet Name="T_Shop_ProductCategory" EntityType="Self.T_Shop_ProductCategory" />
+          <AssociationSet Name="FK_T_Shop_Basket_ToBuyer" Association="Self.FK_T_Shop_Basket_ToBuyer">
+            <End Role="T_Shop_Buyer" EntitySet="T_Shop_Buyer" />
+            <End Role="T_Shop_Basket" EntitySet="T_Shop_Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Shop_Basket_ToProduct" Association="Self.FK_T_Shop_Basket_ToProduct">
+            <End Role="T_Shop_Product" EntitySet="T_Shop_Product" />
+            <End Role="T_Shop_Basket" EntitySet="T_Shop_Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Shop_OrderItems_ToOrder" Association="Self.FK_T_Shop_OrderItems_ToOrder">
+            <End Role="T_Shop_Order" EntitySet="T_Shop_Order" />
+            <End Role="T_Shop_OrderItems" EntitySet="T_Shop_OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Shop_OrderItems_ToProduct" Association="Self.FK_T_Shop_OrderItems_ToProduct">
+            <End Role="T_Shop_Product" EntitySet="T_Shop_Product" />
+            <End Role="T_Shop_OrderItems" EntitySet="T_Shop_OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Shop_Product_ToCategory" Association="Self.FK_T_Shop_Product_ToCategory">
+            <End Role="T_Shop_ProductCategory" EntitySet="T_Shop_ProductCategory" />
+            <End Role="T_Shop_Product" EntitySet="T_Shop_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Shop_Order_ToBuyer" Association="jb_shopModel.FK_T_Shop_Order_ToBuyer">
+            <End Role="T_Shop_Buyer" EntitySet="T_Shop_Buyer" />
+            <End Role="T_Shop_Order" EntitySet="T_Shop_Order" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_T_Shop_Order_ToBuyer">
+          <End Type="jb_shopModel.T_Shop_Buyer" Role="T_Shop_Buyer" Multiplicity="0..1" />
+          <End Type="jb_shopModel.T_Shop_Order" Role="T_Shop_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Shop_Buyer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_Shop_Order">
+              <PropertyRef Name="BuyerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="jb_shopModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="T_Shop_Admin">
+            <EntityTypeMapping TypeName="jb_shopModel.T_Shop_Admin">
+              <MappingFragment StoreEntitySet="T_Shop_Admin">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="PWD" ColumnName="PWD" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Shop_Basket">
+            <EntityTypeMapping TypeName="jb_shopModel.T_Shop_Basket">
+              <MappingFragment StoreEntitySet="T_Shop_Basket">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Shop_Buyer">
+            <EntityTypeMapping TypeName="jb_shopModel.T_Shop_Buyer">
+              <MappingFragment StoreEntitySet="T_Shop_Buyer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="PWD" ColumnName="PWD" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Shop_Order">
+            <EntityTypeMapping TypeName="jb_shopModel.T_Shop_Order">
+              <MappingFragment StoreEntitySet="T_Shop_Order">
+                <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ConnectorName" ColumnName="ConnectorName" />
+                <ScalarProperty Name="ConnectorAddress" ColumnName="ConnectorAddress" />
+                <ScalarProperty Name="ConnectorPhone" ColumnName="ConnectorPhone" />
+                <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Shop_OrderItems">
+            <EntityTypeMapping TypeName="jb_shopModel.T_Shop_OrderItems">
+              <MappingFragment StoreEntitySet="T_Shop_OrderItems">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Shop_Product">
+            <EntityTypeMapping TypeName="jb_shopModel.T_Shop_Product">
+              <MappingFragment StoreEntitySet="T_Shop_Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="MothSells" ColumnName="MothSells" />
+                <ScalarProperty Name="Pic" ColumnName="Pic" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Shop_ProductCategory">
+            <EntityTypeMapping TypeName="jb_shopModel.T_Shop_ProductCategory">
+              <MappingFragment StoreEntitySet="T_Shop_ProductCategory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

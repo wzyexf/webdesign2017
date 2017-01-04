@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7a041618980f4d6896c853374a0abce3" Name="Diagram1">
+        <EntityTypeShape EntityType="jb_shopModel.T_Shop_Admin" Width="1.5" PointX="12.625" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="jb_shopModel.T_Shop_Basket" Width="1.5" PointX="5.625" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="jb_shopModel.T_Shop_Buyer" Width="1.5" PointX="10" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="jb_shopModel.T_Shop_Order" Width="1.5" PointX="7.625" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="jb_shopModel.T_Shop_OrderItems" Width="1.5" PointX="5.625" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="jb_shopModel.T_Shop_Product" Width="1.5" PointX="3.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="jb_shopModel.T_Shop_ProductCategory" Width="1.5" PointX="0.625" PointY="2.75" IsExpanded="true" />
+        <AssociationConnector Association="jb_shopModel.FK_T_Shop_Basket_ToBuyer" ManuallyRouted="false" />
+        <AssociationConnector Association="jb_shopModel.FK_T_Shop_Basket_ToProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="jb_shopModel.FK_T_Shop_OrderItems_ToOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="jb_shopModel.FK_T_Shop_OrderItems_ToProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="jb_shopModel.FK_T_Shop_Product_ToCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="jb_shopModel.FK_T_Shop_Order_ToBuyer" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
