@@ -8,6 +8,7 @@ namespace design.Controllers
 {
     public class ShopController : Controller
     {
+       public  design.Models.Entities shopDb = new Models.Entities();
         // GET: Shop
         /// <summary>
         /// 购物首页
@@ -15,7 +16,33 @@ namespace design.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            return View();
+            #region 处理
+
+            //Models.DB db = new Models.DB();
+
+            //ViewBag.lst = db.lst;
+
+
+            
+            ViewBag.lst = shopDb.T_Shop_Product.ToList();
+
+            return View("/views/shop/index.cshtml");
+            #endregion
+        
+
+    }
+
+        public ActionResult AddBasket(int ProductId,int Amount)
+        {
+            design.Models.T_Shop_Product product= shopDb.T_Shop_Product.Find(ProductId);
+
+            design.Models.T_Shop_Basket basket = new Models.T_Shop_Basket();
+            basket.Price = product.Price;
+            basket.ProductId = product.Id;
+            basket.Amount = Amount;
+            shopDb.T_Shop_Basket.Add(basket);
+            shopDb.SaveChanges();
+            return RedirectToAction("Basket");
         }
         /// <summary>
         /// 产品分类展示页面

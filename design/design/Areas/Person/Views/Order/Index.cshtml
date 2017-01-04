@@ -1,0 +1,64 @@
+﻿@model IEnumerable<design.Models.T_Shop_Order>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Person/Views/Shared/_PersonLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ConnectorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConnectorAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConnectorPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalMoney)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.T_Shop_Buyer.LoginName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConnectorName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConnectorAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConnectorPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalMoney)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.T_Shop_Buyer.LoginName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

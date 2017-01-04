@@ -205,6 +205,9 @@
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\T_Shop_OrderController.cs" />
+    <Compile Include="Areas\Person\Controllers\BuyerController.cs" />
+    <Compile Include="Areas\Person\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Person\PersonAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -258,6 +261,9 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\ballon.jpg" />
+    <Content Include="Content\images\pic1.jpg" />
+    <Content Include="Content\images\pic2.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -446,6 +452,7 @@
     <Content Include="sbadmin\vendor\font-awesome\scss\_stacked.scss" />
     <Content Include="sbadmin\vendor\font-awesome\scss\_variables.scss" />
     <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="讲解.txt" />
     <EntityDeploy Include="Models\shop.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -479,6 +486,18 @@
     <Content Include="Areas\Admin\Views\T_Shop_Order\Details.cshtml" />
     <Content Include="Areas\Admin\Views\T_Shop_Order\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\T_Shop_Order\Index.cshtml" />
+    <Content Include="Areas\Person\Views\web.config" />
+    <Content Include="Areas\Person\Views\Shared\_PersonLayout.cshtml" />
+    <Content Include="Areas\Person\Views\Buyer\Create.cshtml" />
+    <Content Include="Areas\Person\Views\Buyer\Delete.cshtml" />
+    <Content Include="Areas\Person\Views\Buyer\Details.cshtml" />
+    <Content Include="Areas\Person\Views\Buyer\Edit.cshtml" />
+    <Content Include="Areas\Person\Views\Buyer\Index.cshtml" />
+    <Content Include="Areas\Person\Views\Order\Create.cshtml" />
+    <Content Include="Areas\Person\Views\Order\Delete.cshtml" />
+    <Content Include="Areas\Person\Views\Order\Details.cshtml" />
+    <Content Include="Areas\Person\Views\Order\Edit.cshtml" />
+    <Content Include="Areas\Person\Views\Order\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -527,14 +546,15 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_ShopLayout.cshtml" />
     <Content Include="Views\Shared\_PersonLayout.cshtml" />
+    <Content Include="Views\Shop\Basket.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Manager\" />
     <Folder Include="Areas\Admin\Views\Order\" />
+    <Folder Include="Areas\Person\Models\" />
     <Folder Include="Views\Person\" />
-    <Folder Include="Views\Shop\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

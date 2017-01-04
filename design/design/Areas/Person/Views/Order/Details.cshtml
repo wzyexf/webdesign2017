@@ -1,0 +1,91 @@
+﻿@model design.Models.T_Shop_Order
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Person/Views/Shared/_PersonLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>T_Shop_Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ConnectorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConnectorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConnectorAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConnectorAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConnectorPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConnectorPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalMoney)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalMoney)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.T_Shop_Buyer.LoginName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.T_Shop_Buyer.LoginName)
+        </dd>
+
+    </dl>
+</div>
+
+<div>
+    <table class="table">
+        <tr>
+            <td>商品名字</td>
+            <td>数量</td>
+        </tr>
+        @foreach (design.Models.T_Shop_OrderItems item in Model.T_Shop_OrderItems)
+
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.T_Shop_Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+
+            </tr>
+        }
+
+    </table>
+    </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
