@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Basket";
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
+}
+
+    <div class="panel panel-primary" style="width:400px; margin:0 auto; margin-top:100px;">
+        <div class="panel-heading">登录框</div>
+        <div class="panel-body">
+            <div class="container ">
+                <form role="form" >
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">登录名</label>
+                        <input type="text" class="form-control" id="LoginName"  placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">密码</label>
+                        <input type="password" class="form-control" id="Password" placeholder="Password">
+                    </div>
+
+
+
+                    @*<button type="submit" class="btn btn-default">提交</button>*@
+                    <button type="button" class="btn btn-default" onclick="send()">提交</button>
+
+
+                  
+
+
+                    <a href="/person/buyer/Create" class="btn btn-default">注册</a>
+                </form>
+            </div>
+        </div>
+    </div>
+ 
+<script type="text/javascript">
+
+
+    function send() {
+
+        var Password = $("#Password").val();
+        var LoginName = $("#LoginName").val();
+        $.post("/person/buyer/LoginCheck",
+                     {
+                         "Password": Password,
+                         "LoginName": LoginName
+                     },
+                     function (data, status) {
+
+                         if (data.code == 1)
+                         {
+                             location.href = "/shop/index";
+
+                         } else
+                         {
+                             window.alert(data.message);
+                         }
+
+                         
+                     });
+
+
+         }
+</script>

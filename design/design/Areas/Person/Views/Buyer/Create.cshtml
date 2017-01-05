@@ -1,8 +1,8 @@
 ﻿@model design.Models.T_Shop_Buyer
 
 @{
-    ViewBag.Title = "Create";
-    Layout = "~/Areas/Person/Views/Shared/_PersonLayout.cshtml";
+    ViewBag.Title = "Basket";
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
 }
 
 <h2>Create</h2>
@@ -68,6 +68,7 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
+ <script>
     @Scripts.Render("~/bundles/jqueryval")
-}
+
+</script>

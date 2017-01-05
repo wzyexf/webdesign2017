@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using design.Models;
+using System.IO;
 
 namespace design.Areas.Admin.Controllers
 {
@@ -52,6 +53,15 @@ namespace design.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                var myfile1 = Request.Files["Pic"];
+                   if (myfile1 != null)
+                   {
+                     myfile1.SaveAs(Path.Combine(Request.MapPath("~/Upload"), Path.GetFileName(myfile1.FileName)));
+                    t_Shop_Product.Pic = Path.GetFileName(myfile1.FileName);
+                }
+
+              
                 db.T_Shop_Product.Add(t_Shop_Product);
                 db.SaveChanges();
                 return RedirectToAction("Index");

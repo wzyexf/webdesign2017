@@ -14,9 +14,40 @@ namespace design.Areas.Person.Controllers
     {
         private Entities db = new Entities();
 
+     
+        public ActionResult Login()
+        {
+            return View();
+        }
+   
+        public  ActionResult Exit()
+        {
+            Session.Abandon();
+            return Redirect("/shop/index");        }
+       
+        public JsonResult LoginCheck(string Password, string LoginName)
+        {
+            List<design.Models.T_Shop_Buyer>  lst= db.T_Shop_Buyer.Where(m => m.LoginName == LoginName && m.PWD == Password).ToList();
+            if(lst.Count>0)
+            {
+                Session["person"] = lst[0];
+                return Json(new  { code = 1, message = "登录成功" });
+            }
+            else
+            {
+                return Json(new { code = 0, message = "登录失败" });
+            }
+        }
+
+
         // GET: Person/Buyer
         public ActionResult Index()
         {
+            if(Session["person"] == null)
+            {
+               return  RedirectToAction("Login");
+
+            }
             return View(db.T_Shop_Buyer.ToList());
         }
 
